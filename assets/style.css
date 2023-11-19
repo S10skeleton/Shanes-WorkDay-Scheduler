@@ -7,9 +7,8 @@ header {
 /* Changed app to be more in the darkmode style.  */
 body {
   background-color: #252525;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-size: 16px;
-  
 }
 
 .past {
@@ -27,10 +26,10 @@ body {
   color: white;
 }
 
-
-
 /* Added underline to current date to help it stand out  */
-#currentDay {text-decoration: underline;}
+#currentDay {
+  text-decoration: underline;
+}
 
 textarea {
   background: transparent;
@@ -59,8 +58,6 @@ textarea {
   border-top: 1px dashed #000000;
 }
 
-
-
 .saveBtn {
   border-left: 1px solid black;
   border-top-right-radius: 15px;
@@ -74,7 +71,6 @@ textarea {
   transition: all 0.3s ease-in-out;
 }
 
-.btn-danger {
-  display: flex;
-  justify-content: center;
-}
+
+
+

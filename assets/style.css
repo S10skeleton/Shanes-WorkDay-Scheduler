@@ -1,3 +1,8 @@
+/* Changed header text color to White for darkmode  */
+header {
+  background-color: #130057;
+  color: #ffffff;
+}
 
 /* Changed app to be more in the darkmode style.  */
 body {
@@ -7,10 +12,7 @@ body {
   
 }
 
-/* Changed header text color to White for darkmode  */
-header {
-  color: #ffffff;
-}
+
 
 /* Added underline to current date to help it stand out  */
 #currentDay {text-decoration: underline;}

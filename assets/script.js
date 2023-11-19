@@ -9,6 +9,39 @@ $(function () {
           // time-block containing the button that was clicked? How might the id be
           // useful when saving the description in local storage?
           //
+  
+  // Created a function to display current date and time using dayjs, 
+  // and made sure current time updated every 10 Sec 
+  // added CSS style to underline the current date/time and make it stand out.  
+  
+  function updateDateTime() {
+    $('#currentDay').text(dayjs().format('dddd, MMMM D, h:mm A'));
+    }
+
+    updateDateTime();
+    setInterval(updateDateTime, 10000); 
+  
+
+  // Created Code to Save events and also pull events from local storage upon reloading 
+  function saveEvent(hour, eventText) {
+    localStorage.setItem(hour, eventText);
+  }
+
+  function loadEvents() {
+    $('.time-block').each(function() {
+      var hour = $(this).attr('id');
+      var eventText = localStorage.getItem(hour) || '';
+      $(this).find('.description').val(eventText);
+    });
+  }
+
+  loadEvents();
+
+  $('.saveBtn').click(function() {
+    var hour = $(this).closest('.time-block').attr('id');
+    var eventText = $(this).siblings('.description').val();
+    saveEvent(hour, eventText);
+  });
           
           
           
@@ -28,6 +61,7 @@ $(function () {
       if (blockHour < currentHour) {
         $(this).addClass('past').removeClass('present future');
       } else if (blockHour === currentHour) {
+        $(this).addClass('present').removeClass('past future');
       } else {
         $(this).addClass('future').removeClass('past present');
       }
@@ -36,7 +70,25 @@ $(function () {
 // Set code to get current hour every 10 minuts 
   updateHourlyBlocks();
 
-  setInterval(updateHourlyBlocks, 600000);
+  setInterval(updateHourlyBlocks, 10000);
+
+  // Added a seperate function to highlight the next appointment time in red if less than 60 min 
+  function updateApptWarning() {
+    var currentTime = dayjs();
+    $('.Appt').each(function() {
+      var apptTimeStr = $(this).attr('data-appt-time');
+      var apptTime = dayjs().hour(parseInt(apptTimeStr.split(':')[0])).minute(parseInt(apptTimeStr.split(':')[1])); // Convert to day.js object
+  
+      if (currentTime.isBefore(apptTime) && apptTime.diff(currentTime, 'minute') <= 30) {
+        $(this).css('background-color', 'red'); // Change CSS if current time is within 30 minutes before the appointment
+      } else {
+        $(this).css('background-color', ''); // Reset CSS if condition doesn't match
+      }
+    })
+  }
+
+   updateApptWarning();
+    setInterval(updateApptWarning, 60000);
           
           
           
@@ -48,16 +100,6 @@ $(function () {
           
           // TODO: Add code to display the current date in the header of the page.
 
-  // Created a function to display current date and time using dayjs, 
-  // and made sure current time updated every 10 Sec 
-  // added CSS style to underline the current date/time and make it stand out.  
-  $(function () {
-    function updateDateTime() {
-    $('#currentDay').text(dayjs().format('dddd, MMMM D, h:mm A'))
-    }
-    updateDateTime();
-    setInterval(updateDateTime, 10000); 
-  });
 
 
 

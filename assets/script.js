@@ -20,6 +20,34 @@ $(function () {
 
     updateDateTime();
     setInterval(updateDateTime, 10000); 
+
+              // TODO: Add code to apply the past, present, or future class to each time
+          // block by comparing the id to the current hour. HINTS: How can the id
+          // attribute of each time-block be used to conditionally add or remove the
+          // past, present, and future classes? How can Day.js be used to get the
+          // current hour in 24-hour time?
+          //
+
+  // Created code to modify background color of scheduled events 
+  // to represent if the event is in the future or the past 
+  function updateHourlyBlocks() {
+    var currentHour = dayjs().hour();
+    $('.time-block').each(function() {
+      var blockHour = parseInt($(this).attr('id').substring(5));
+      if (blockHour < currentHour) {
+        $(this).addClass('past').removeClass('present future');
+      } else if (blockHour === currentHour) {
+        $(this).addClass('present').removeClass('past future');
+      } else {
+        $(this).addClass('future').removeClass('past present');
+      }
+    });
+  }
+// Set code to get current hour every 10 minuts 
+  updateHourlyBlocks();
+
+  setInterval(updateHourlyBlocks, 1000);
+
   
 
   // Created Code to Save events and also pull events from local storage upon reloading 
@@ -45,44 +73,18 @@ $(function () {
           
           
           
-          // TODO: Add code to apply the past, present, or future class to each time
-          // block by comparing the id to the current hour. HINTS: How can the id
-          // attribute of each time-block be used to conditionally add or remove the
-          // past, present, and future classes? How can Day.js be used to get the
-          // current hour in 24-hour time?
-          //
 
-  // Created code to modify background color of scheduled events 
-  // to represent if the event is in the future or the past 
-  function updateHourlyBlocks() {
-    var currentHour = dayjs().hour();
-    $('.time-block').each(function() {
-      var blockHour = parseInt($(this).attr('id').replace('hour-'));
-      if (blockHour < currentHour) {
-        $(this).addClass('past').removeClass('present future');
-      } else if (blockHour === currentHour) {
-        $(this).addClass('present').removeClass('past future');
-      } else {
-        $(this).addClass('future').removeClass('past present');
-      }
-    });
-  }
-// Set code to get current hour every 10 minuts 
-  updateHourlyBlocks();
-
-  setInterval(updateHourlyBlocks, 600000);
-
-  // Added a seperate function to highlight the next appointment time in red if less than 60 min 
+  // Added a seperate function to highlight the next appointment time in red if less than 10 min 
   function updateApptWarning() {
     var currentTime = dayjs();
     $('.Appt').each(function() {
       var apptTimeStr = $(this).attr('data-appt-time');
-      var apptTime = dayjs().hour(parseInt(apptTimeStr.split(':')[0])).minute(parseInt(apptTimeStr.split(':')[1])); // Convert to day.js object
+      var apptTime = dayjs().hour(parseInt(apptTimeStr.split(':')[0])).minute(parseInt(apptTimeStr.split(':')[1]));
   
-      if (currentTime.isBefore(apptTime) && apptTime.diff(currentTime, 'minute') <= 30) {
-        $(this).css('background-color', 'red'); // Change CSS if current time is within 30 minutes before the appointment
+      if (currentTime.isBefore(apptTime) && apptTime.diff(currentTime, 'minute') <= 10) {
+        $(this).css('background-color', 'red');
       } else {
-        $(this).css('background-color', ''); // Reset CSS if condition doesn't match
+        $(this).css('background-color', '');
       }
     })
   }

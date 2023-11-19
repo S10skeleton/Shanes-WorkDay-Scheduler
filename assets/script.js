@@ -70,7 +70,7 @@ $(function () {
 // Set code to get current hour every 10 minuts 
   updateHourlyBlocks();
 
-  setInterval(updateHourlyBlocks, 10000);
+  setInterval(updateHourlyBlocks, 600000);
 
   // Added a seperate function to highlight the next appointment time in red if less than 60 min 
   function updateApptWarning() {
@@ -99,6 +99,19 @@ $(function () {
           
           
           // TODO: Add code to display the current date in the header of the page.
+
+// Added a clear all button to reset for each new day if desired 
+ // Clear all appointments
+ function clearAllAppointments() {
+  localStorage.clear();
+  $('.description').val('');
+}
+
+$('.clearLocalStorage').click(function() {
+  clearAllAppointments();
+  alert('All appointments have been cleared!');
+});
+
 
 
 

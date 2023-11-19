@@ -1,10 +1,19 @@
 
-
+/* Changed app to be more in the darkmode style.  */
 body {
+  background-color: #252525;
   font-family: 'Open Sans', sans-serif;
   font-size: 16px;
   
 }
+
+/* Changed header text color to White for darkmode  */
+header {
+  color: #ffffff;
+}
+
+/* Added underline to current date to help it stand out  */
+#currentDay {text-decoration: underline;}
 
 textarea {
   background: transparent;
